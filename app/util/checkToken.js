@@ -10,4 +10,14 @@ module.exports = {
       err ? res.json({ error: 401 }) : next();
     });
   },
+  checkTokenAdmin: function (req, res, next) {
+    const authenHeader = req.headers.authorization?.split(" ")[1];
+    jwt.verify(authenHeader, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+      err
+        ? res.json({ error: 401 })
+        : data.type === 1
+        ? next()
+        : res.json({ error: 401 });
+    });
+  },
 };

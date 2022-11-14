@@ -1,0 +1,40 @@
+method get : /user/login 
+{
+    "email":"admin",
+    "password": "admin"
+}
+method get : /category and /category/:id
+method get : /product and /product/:id
+
+method post : /admin/register or /user/register
+{
+    "email":"user",
+    "userName":"admin",
+    "passWord":"admin",
+    "type":1,
+    "phoneNumber":123
+}
+method post : /category
+{
+    "categoryName":"manhne"
+}
+method post : /product
+{
+    "name":"Namee34",
+    "price":10,
+    "categoryId":1
+}
+
+method put : /product:id
+{
+    "name": "manh ok3",
+    "price": 111,
+    "categoryId": 2
+}
+method put : /category:id
+{
+    "categoryName": "demo"
+}
+
+method delete : /product:id
+method delete : /category:id
