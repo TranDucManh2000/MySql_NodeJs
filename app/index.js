@@ -1,5 +1,6 @@
 const express = require("express");
 const router = require("./routers");
+const cors = require("cors");
 const app = express();
 const port = 3001;
 
@@ -8,6 +9,7 @@ const port = 3001;
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+app.use(cors());
 
 router(app);
 
