@@ -4,8 +4,9 @@ const cors = require("cors");
 const app = express();
 const port = 3001;
 
-// const morgan = require("morgan");
-// app.use(morgan("combined", { stream: true }));
+// socket
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -13,6 +14,25 @@ app.use(cors());
 
 router(app);
 
-app.listen(port, () => {
+// add socket
+const httpServer = createServer(app);
+
+httpServer.listen(port, () => {
   console.log(`API ${port}`);
 });
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*", // http
+    methods: "*", // methods
+  },
+});
+
+io.on("connect", (socket) => {
+  socket.on("chat message", (msg) => {
+    console.log("message: " + msg);
+    io.emit("chat message", msg);
+  });
+});
+
+module.exports = io;
