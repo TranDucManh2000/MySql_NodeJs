@@ -28,11 +28,29 @@ const io = new Server(httpServer, {
   },
 });
 
+let user = [];
+const addUser = (userId, socketId) => {
+  !user.some((user) => user.userId === userId) &&
+    user.push({ userId, socketId });
+};
+
+const removerUser = (socketId) => {
+  user = user.filter((user) => user.socketId !== socketId);
+};
+
 io.on("connect", (socket) => {
+  // console.log("socket", socket.id);
+  // addUser("mambh", socket.id);
+  // console.log("user", user);
+  io.emit("getuser", user);
   socket.on("chat message", (msg) => {
-    console.log("message: " + msg);
-    io.emit("chat message", msg);
+    io.to(`${user[0]?.socketId}`).emit("chat message", msg);
+    // io.emit("chat message", msg);
+    addUser(msg, socket.id);
+    // io.emit("getuser", user);
+  });
+  socket.on("disconnect", () => {
+    removerUser(socket.id);
   });
 });
-
 module.exports = io;
