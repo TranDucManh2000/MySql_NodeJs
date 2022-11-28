@@ -9,11 +9,11 @@ class UserController {
   // [post] /user/register
   register(req, res) {
     connect.query(
-      `SELECT Email,PassWord,Type FROM Users WHERE Email = "${req.body.email}"`,
+      `SELECT email,password,Type FROM users WHERE email = "${req.body.email}"`,
       function (err, result) {
-        result.length === 0
+        result?.length === 0
           ? connect.query(
-              `INSERT INTO Users(Email,UserName,PassWord,Type,PhoneNumber) VALUES("${req.body.email}","${req.body.userName}","${req.body.passWord}",0,${req.body.phoneNumber})`,
+              `INSERT INTO users(email,name,password,type) VALUES("${req.body.email}","${req.body.name}","${req.body.password}",0)`,
               function (err, result) {
                 console.log(err);
                 err
@@ -28,7 +28,7 @@ class UserController {
   // [post] /user/login
   login(req, res) {
     connect.query(
-      `SELECT Email,PassWord,Type FROM Users WHERE Email = "${req.body.email}" and PassWord = "${req.body.password}"`,
+      `SELECT email,password,type FROM users WHERE email = "${req.body.email}" and PassWord = "${req.body.password}"`,
       function (err, result) {
         result.length <= 0
           ? res.json({ status: 400, data: "data not found" })

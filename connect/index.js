@@ -4,7 +4,7 @@ var connect = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "DEMO_MY_SQL",
+  database: "CLONE_YOUTUBE",
   port: 4306,
 });
 

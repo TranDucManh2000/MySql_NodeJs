@@ -3,7 +3,7 @@ const connect = require("../../connect");
 class CategoryController {
   // [get] /category
   index(req, res, next) {
-    connect.query("SELECT * FROM CategoryItem", function (err, result) {
+    connect.query("SELECT * FROM category", function (err, result) {
       err
         ? res.json({ status: 403 })
         : res.json({ result: result, status: 200 });

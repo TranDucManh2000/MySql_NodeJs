@@ -3,7 +3,7 @@ const connect = require("../../connect");
 class ProductController {
   // [get] /product
   index(req, res, next) {
-    connect.query("SELECT * FROM Products", function (err, result) {
+    connect.query("SELECT * FROM product", function (err, result) {
       err
         ? res.json({ status: 403 })
         : res.json({ result: result, status: 200 });
@@ -12,7 +12,7 @@ class ProductController {
   // [get] /product/:slug
   slug(req, res, next) {
     connect.query(
-      `SELECT Id,Name,Price,CategoryId FROM Products WHERE Id = ${req.params.slug}`,
+      `SELECT * FROM product WHERE productid = ${req.params.slug}`,
       function (err, result) {
         err
           ? res.json({ status: 403 })
