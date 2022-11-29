@@ -28,7 +28,7 @@ class UserController {
   // [post] /user/login
   login(req, res) {
     connect.query(
-      `SELECT email,password,type FROM users WHERE email = "${req.body.email}" and PassWord = "${req.body.password}"`,
+      `SELECT email,password,type FROM users WHERE email = "${req.body.email}" and password = "${req.body.password}"`,
       function (err, result) {
         result.length <= 0
           ? res.json({ status: 400, data: "data not found" })

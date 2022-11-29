@@ -20,4 +20,15 @@ module.exports = {
         : res.status(403).send({ error: "403 Forbidden" });
     });
   },
+  getEmailAuthen: function (req) {
+    const authenHeader = req.headers.authorization?.split(" ")[1];
+    const email = jwt.verify(
+      authenHeader,
+      process.env.ACCESS_TOKEN_SECRET,
+      (err, data) => {
+        return err ? null : data.email;
+      }
+    );
+    return email;
+  },
 };
